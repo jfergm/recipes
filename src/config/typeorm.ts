@@ -1,7 +1,7 @@
-import { createConnection } from 'typeorm'
+import { createConnection } from 'typeorm';
 
 export async function connect() {
   await createConnection();
 
-  console.log('Database connected')
+  console.log('Database connected');
 }
