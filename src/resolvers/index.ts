@@ -1,3 +1,5 @@
+import  category  from './category';
+
 const resolvers = {
   Query: {
     helloWorld: () => {
@@ -6,4 +8,4 @@ const resolvers = {
   }
 };
 
-export = [resolvers];
+export = [resolvers, category];
