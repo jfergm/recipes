@@ -1,4 +1,5 @@
 import  category  from './category';
+import user from './user';
 
 const resolvers = {
   Query: {
@@ -8,4 +9,4 @@ const resolvers = {
   }
 };
 
-export = [resolvers, category];
+export = [resolvers, category, user];
