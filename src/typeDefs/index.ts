@@ -1,7 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 import category from './category';
-import user from './user'
+import user from './user';
+import recipe from './recipe';
 
 const typeDefs = gql`
   type Query {
@@ -13,4 +14,4 @@ const typeDefs = gql`
   }
 `;
 
-export = [typeDefs, category, user];
+export = [typeDefs, category, user, recipe];
