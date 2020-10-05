@@ -7,7 +7,8 @@ export = gql`
   }
 
   extend type Mutation {
-    createCategory(input: createCategoryInput!): Category
+    createCategory(input: categoryInput!): Category
+    updateCategory(id: ID!, input: categoryInput!): Category
   }
 
   type Category {
@@ -15,7 +16,7 @@ export = gql`
     name: String!
   }
 
-  input createCategoryInput {
+  input categoryInput {
     name: String!
   }
 `;

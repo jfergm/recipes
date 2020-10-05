@@ -6,7 +6,7 @@ export = {
   Query: {
     getCategories: combineResolvers(isAuthenticated, async (): Promise<Category[]> => {
       try {
-        const categories : Category[]= await Category.find();
+        const categories : Category[] = await Category.find();
         return categories;
       } catch(e) {
         return e;
@@ -31,6 +31,20 @@ export = {
       } catch(error) {
         console.log(error);
         return error;
+      }
+    }),
+    updateCategory: combineResolvers(isAuthenticated, async (_ : any, { id, input } : any) : Promise<Category | undefined> => {
+      try {
+        const category : Category | undefined = await Category.findOne({ id });
+        if(!category) {
+          throw new Error("Category does not exists")
+        }
+
+        return await Category.save({ ...category,  ...input});
+
+        return category;
+      } catch(error) {
+        return error
       }
     })
   }
