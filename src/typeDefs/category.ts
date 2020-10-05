@@ -9,6 +9,7 @@ export = gql`
   extend type Mutation {
     createCategory(input: categoryInput!): Category
     updateCategory(id: ID!, input: categoryInput!): Category
+    deleteCategory(id: ID!): Category
   }
 
   type Category {

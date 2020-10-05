@@ -51,6 +51,21 @@ export = {
       } catch(error) {
         return error
       }
+    }),
+    deleteCategory: combineResolvers(isAuthenticated, async(_, { id }) => {
+      try {
+        const category : Category | undefined = await Category.findOne({ id });
+        const categoryDeleted : {} = { ...category }
+
+        if(!category) {
+          throw new Error("Category does not exists");
+        }
+        await category?.remove();
+
+        return categoryDeleted;
+      } catch(error) {
+        return error;
+      }
     })
   }
 };

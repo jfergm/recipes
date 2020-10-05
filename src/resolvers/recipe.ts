@@ -80,6 +80,9 @@ export = {
         const recipe : Recipe | undefined = await Recipe.findOne({id});
         const recipeDeleted : {} = { ... recipe};
 
+        if(!recipe) {
+          throw new Error("Recipe does not exists")
+        }
         await recipe?.remove();
 
         return recipeDeleted;
