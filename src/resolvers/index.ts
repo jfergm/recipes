@@ -10,4 +10,4 @@ const resolvers = {
   }
 };
 
-export = [resolvers, category, user, recipe];
+export = [category, user, recipe];
