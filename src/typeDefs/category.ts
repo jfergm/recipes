@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export = gql`
   extend type Query {
-    getCategories: [Category!]
+    getCategories(filter: String): [Category!]
     getOneCategory(id:ID!): Category
   }
 

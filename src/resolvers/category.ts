@@ -1,12 +1,17 @@
 import { Category } from '../entity/Category';
 import { combineResolvers } from 'graphql-resolvers';
 import { isAuthenticated } from './middleware';
+import { Like } from 'typeorm';
 
 export = {
   Query: {
-    getCategories: combineResolvers(isAuthenticated, async (): Promise<Category[]> => {
+    getCategories: combineResolvers(isAuthenticated, async (_ : any, { filter }): Promise<Category[]> => {
       try {
-        const categories : Category[] = await Category.find();
+        const filterOpts : any = {};
+        if(filter) {
+          filterOpts.name = Like(`%${filter}%`);
+        }
+        const categories : Category[] = await Category.find(filterOpts);
         return categories;
       } catch(e) {
         return e;
