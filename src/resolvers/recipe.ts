@@ -74,6 +74,18 @@ export = {
       } catch(error) {
         return error
       }
+    }),
+    deleteRecipe: combineResolvers(isAuthenticated, async(_, { id }) => {
+      try {
+        const recipe : Recipe | undefined = await Recipe.findOne({id});
+        const recipeDeleted : {} = { ... recipe};
+
+        await recipe?.remove();
+
+        return recipeDeleted;
+      } catch(error) {
+        return error;
+      }
     })
   },
   Recipe: {

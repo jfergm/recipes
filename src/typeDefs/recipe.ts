@@ -10,6 +10,7 @@ export = gql`
   extend type Mutation {
     createRecipe(input: inputCreateRecipe): Recipe
     updateRecipe(id: ID!, input: inputUpdateRecipe): Recipe
+    deleteRecipe(id: ID!): Recipe
   }
 
   type Recipe {
