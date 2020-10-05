@@ -9,6 +9,7 @@ export = gql`
 
   extend type Mutation {
     createRecipe(input: inputCreateRecipe): Recipe
+    updateRecipe(id: ID!, input: inputUpdateRecipe): Recipe
   }
 
   type Recipe {
@@ -16,7 +17,7 @@ export = gql`
     name: String!
     description: String
     ingredients: [String!]
-    category: Int!
+    category: Category
   }
 
   input inputCreateRecipe {
@@ -24,5 +25,12 @@ export = gql`
     description: String
     ingredients: [String!]
     category: Int!
+  }
+
+  input inputUpdateRecipe {
+    name: String
+    description: String
+    ingredients: [String!]
+    category: Int
   }
 `;

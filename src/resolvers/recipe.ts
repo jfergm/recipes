@@ -1,6 +1,7 @@
 import { Recipe } from '../entity/Recipe';
 import { combineResolvers } from 'graphql-resolvers';
 import { isAuthenticated } from './middleware';
+import { Category } from '../entity/Category';
 
 export = {
   Query: {
@@ -45,6 +46,29 @@ export = {
       } catch(error) {
         return error;
       }
+    }),
+    updateRecipe: combineResolvers(isAuthenticated, async (_ : any, { id, input } : any) : Promise<Recipe | undefined> => {
+      try {
+        const recipe : Recipe | undefined = await Recipe.findOne({ id });
+        if(!recipe) {
+          throw new Error("Category does not exists")
+        }
+
+        return await Recipe.save({ ...recipe,  ...input});
+
+      } catch(error) {
+        return error
+      }
     })
+  },
+  Recipe: {
+    category: async(parent : any) : Promise<Category | undefined> => {
+      try {
+        const category : Category | undefined = await Category.findOne({id: parent.category});
+        return category;
+      } catch(error) {
+        return error;
+      }
+    }
   }
 }
