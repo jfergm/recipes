@@ -31,10 +31,8 @@ export = {
       try {
         const newCategory = Category.create(input);
         await Category.insert(newCategory);
-        console.log(newCategory);
         return newCategory;
       } catch(error) {
-        console.log(error);
         return error;
       }
     }),
@@ -47,7 +45,6 @@ export = {
 
         return await Category.save({ ...category,  ...input});
 
-        return category;
       } catch(error) {
         return error
       }

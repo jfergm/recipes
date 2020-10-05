@@ -53,7 +53,6 @@ export = {
       try {
         input.user = userData.id;
 
-        console.log(input,"xd")
         const newRecipe = Recipe.create(input);
 
         await Recipe.insert(newRecipe);

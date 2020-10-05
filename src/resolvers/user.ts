@@ -23,7 +23,6 @@ export = {
 
         return newUser
       } catch(e) {
-        console.log(e)
         return e
       }
 
