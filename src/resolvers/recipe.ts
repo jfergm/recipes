@@ -2,12 +2,27 @@ import { Recipe } from '../entity/Recipe';
 import { combineResolvers } from 'graphql-resolvers';
 import { isAuthenticated } from './middleware';
 import { Category } from '../entity/Category';
+import { Like } from 'typeorm'
 
 export = {
   Query: {
-    getRecipes: combineResolvers(isAuthenticated, async () : Promise<Recipe[]> => {
+    getRecipes: combineResolvers(isAuthenticated, async (_ , { category, ingredient, name}) : Promise<Recipe[]> => {
       try {
-        const recipes : Recipe[] = await Recipe.find();
+        const filterOpts : any = {};
+
+        if(category) {
+          filterOpts.category = category;
+        }
+
+        if(name) {
+          filterOpts.name = name;
+        }
+
+        if(ingredient) {
+          filterOpts.ingredients = Like(`%${ingredient}%`)
+        }
+
+        const recipes : Recipe[] = await Recipe.find(filterOpts);
 
         return recipes;
       } catch(error) {

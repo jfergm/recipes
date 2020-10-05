@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express'
 
 export = gql`
   extend type Query {
-    getRecipes: [Recipe!]
+    getRecipes(category: Int, name: String, ingredient: String): [Recipe!]
     getOneRecipe(id: ID!): Recipe
     getMyRecipes: [Recipe!]
   }
