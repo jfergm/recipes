@@ -30,7 +30,12 @@ const apolloServer = new ApolloServer({
     return contextObject;
   },
   playground: true,
-  introspection: true
+  introspection: true,
+  formatError: (error) => {
+    return {
+      message: error.message
+    }
+  }
 });
 
 apolloServer.applyMiddleware({app, path: '/graphql'});
