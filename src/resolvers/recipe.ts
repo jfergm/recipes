@@ -6,8 +6,10 @@ import { Like } from 'typeorm'
 
 export = {
   Query: {
-    getRecipes: combineResolvers(isAuthenticated, async (_ , { category, ingredient, name}) : Promise<Recipe[]> => {
+    getRecipes: combineResolvers(isAuthenticated, async (_ : any, { category, ingredient, name}, __, info) : Promise<Recipe[]> => {
       try {
+
+        console.log(info)
         const filterOpts : any = {};
 
         if(category) {
@@ -22,16 +24,15 @@ export = {
           filterOpts.ingredients = Like(`%${ingredient}%`)
         }
 
-        const recipes : Recipe[] = await Recipe.find(filterOpts);
+        return await Recipe.find({relations: ['category'], ...filterOpts});
 
-        return recipes;
       } catch(error) {
         return error
       }
     }),
     getOneRecipe: combineResolvers(isAuthenticated, async (_ :any, { id } : any) => {
       try {
-        const recipe : Recipe | undefined = await Recipe.findOne(id);
+        const recipe : Recipe | undefined = await Recipe.findOne(id, { relations: ['category']});
 
         return recipe;
       } catch(error) {
@@ -40,7 +41,7 @@ export = {
     }),
     getMyRecipes: combineResolvers(isAuthenticated, async(_ : any, __ : any, { userData } : any) => {
       try {
-        const myRecipes : Recipe[] = await Recipe.find({ user: userData.id });
+        const myRecipes : Recipe[] = await Recipe.find({  relations: ['category'], where: { user: userData.id} });
         return myRecipes;
       } catch(error) {
         return error;
@@ -90,15 +91,5 @@ export = {
         return error;
       }
     })
-  },
-  Recipe: {
-    category: async(parent : any) : Promise<Category | undefined> => {
-      try {
-        const category : Category | undefined = await Category.findOne({id: parent.category});
-        return category;
-      } catch(error) {
-        return error;
-      }
-    }
   }
 }

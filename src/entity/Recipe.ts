@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity  } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import { User } from './User';
+import { Category } from './Category'
 
 @Entity('recipes')
 export class Recipe extends BaseEntity {
@@ -17,12 +19,12 @@ export class Recipe extends BaseEntity {
   @Column('simple-array')  
   ingredients!: string[];
 
-  @Column({
-    name: "category_id"
-  })
+  @ManyToOne(type => Category, category => category)
+  @JoinColumn({name: "category_id"})
   category!: number;
 
-  @Column({
+  @ManyToOne(type => User)
+  @JoinColumn({
     name: "user_id"
   })
   user!: number
