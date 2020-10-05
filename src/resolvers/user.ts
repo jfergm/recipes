@@ -44,7 +44,7 @@ export = {
         }
 
         const secret : string = process.env.JWT_SECRET || "DefaultSecret123";
-        const token : string = jwt.sign({ email: user.email }, secret, { expiresIn: '1d' });
+        const token : string = jwt.sign({ email: user.email, id: user.id }, secret, { expiresIn: '1d' });
 
         return { token };
       } catch(error) {

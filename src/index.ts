@@ -6,6 +6,8 @@ import resolvers from './resolvers/';
 import typeDefs from './typeDefs';
 
 import { connect } from './config/typeorm';
+import { verifyToken } from './helper/context';
+
 dotEnv.config()
 
 const app = express();
@@ -17,6 +19,16 @@ connect();
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
+  context: async({ req }) => {
+    let contextObject : any = {};
+    if (req) {
+      const userData = await verifyToken(req)
+      
+      contextObject.userData = userData;
+    }
+
+    return contextObject;
+  },
   playground: true,
   introspection: true
 });
