@@ -6,4 +6,4 @@
 #### `yarn build` to build and then `yarn start` to start
 
 
-### [Demo](https://recipesc1.herokuapp.com/graphql)
+### [Demo](https://recipesc1.herokuapp.com/graphql){target="_blank"}
